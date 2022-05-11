@@ -108,8 +108,3 @@ def download_release(releases: dict) -> None:
     file_name = url.split("/")[-1]
     with open(file_name, "wb") as f:
         f.write(request(url).content)
-
-
-release = get_latest_release("sw33ze", "swarm")
-releases = get_release_urls(release)
-download_release(releases)
