@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "python-autoupdater"
+version = "1.0.0"
+description = "simple auto updater for python"
+authors = ["sweeze <sw33ze@protonmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.27.1"
+packaging = "^21.3"
+
+[tool.poetry.dev-dependencies]
+black = "^22.3.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
