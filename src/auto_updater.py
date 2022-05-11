@@ -23,6 +23,7 @@
 """A module for checking for updates to a github repo."""
 
 from json import loads as parse
+from sys import platform
 import requests
 from requests.models import Response
 from packaging.version import parse as version_parse
@@ -84,3 +85,31 @@ def get_release_urls(data: dict) -> dict:
         else:
             releases["linux"] = url
     return releases
+
+
+def download_release(releases: dict) -> None:
+    """Gets the release for your platform and downloads it.
+
+    Args:
+        releases (dict): Dictionary containing keys "windows", "linux", and "mac" depending on the platforms published, and values are the download urls for the release.
+    """
+    try:
+        match platform:
+            case "win32":
+                url = releases["windows"]
+            case "darwin":
+                url = releases["mac"]
+            case "linux":
+                url = releases["linux"]
+            case _:
+                raise Exception("Unsupported platform")
+    except:
+        raise Exception("No release available for your platform")
+    file_name = url.split("/")[-1]
+    with open(file_name, "wb") as f:
+        f.write(request(url).content)
+
+
+release = get_latest_release("sw33ze", "swarm")
+releases = get_release_urls(release)
+download_release(releases)
