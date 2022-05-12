@@ -64,7 +64,6 @@ def check_for_update(data: dict, current_version: str) -> bool:
     return version_parse(latest_version) > version_parse(current_version)
 
 
-
 def get_release_urls(data: dict) -> dict:
     """Takes the data (response.text from github api) and returns a dict containing the urls for the latest release.
 
