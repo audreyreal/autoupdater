@@ -108,3 +108,27 @@ def download_release(releases: dict) -> None:
     file_name = url.split("/")[-1]
     with open(file_name, "wb") as f:
         f.write(request(url).content)
+
+
+def get_release(releases: dict) -> str:
+    """Gets the release for your platform and returns it.
+
+    Args:
+        releases (dict): Dictionary containing keys "windows", "linux", and "mac" depending on the platforms published, and values are the download urls for the release.
+
+    Returns:
+        str: String containing the github release url for the release of your platform.
+    """
+    try:
+        match platform:
+            case "win32":
+                url = releases["windows"]
+            case "darwin":
+                url = releases["mac"]
+            case "linux":
+                url = releases["linux"]
+            case _:
+                raise Exception("Unsupported platform")
+    except:
+        raise Exception("No release available for your platform")
+    return url
